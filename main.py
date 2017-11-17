@@ -9,5 +9,8 @@ from pypad import zero
 message = b"Testing"
 
 for padder in [ansi_x923, iso_10126, pkcs7, zero]:
-    print("{:<15}".format(padder.__name__), repr(padder.pad(message, 10)))
-
+    print("Algorithm:", padder.__name__)
+    print("Original: ", repr(message))
+    print("Padded 1: ", repr(padder.pad(message, 0x10)))
+    print("Padded 2: ", repr(padder.pad(message, 0x10)))
+    print("Padded 3: ", repr(padder.pad(message, 0x10)))

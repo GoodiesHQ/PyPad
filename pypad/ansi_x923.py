@@ -24,18 +24,18 @@ def unpad(buf):
     if not isinstance(buf, bytes):
         raise TypeError("Buffer must be in bytes")
 
-    if len(buf) == 0:
+    bufsize = len(buf)
+    if bufsize == 0:
         raise InvalidMessage("The buffer cannot be empty")
 
     pad_size = ord(buf[-1:])
     pad_size = pad_size or MAX_BLOCK_SIZE
 
-    if len(buf) < pad_size:
+    if bufsize < pad_size:
         raise InvalidMessage("The buffer does not match the pad length.")
 
-    padding = buf[len(buf) - pad_size:-1]
+    padding = buf[bufsize - pad_size:-1]
     if not all(b in (0, b'\x00') for b in padding):
         raise InvalidMessage("The buffer was not padded with ANSI x.923")
 
     return buf[:-pad_size]
-

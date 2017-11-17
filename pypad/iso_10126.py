@@ -3,7 +3,7 @@ Implementation of the ISO 10126 algorithm.
 """
 import struct
 from .utils import random_bytes
-from .exceptions import *
+from .exceptions import InvalidBlockSize, InvalidMessage
 
 __all__ = ["pad", "unpad", "MAX_BLOCK_SIZE"]
 
@@ -25,15 +25,14 @@ def unpad(buf):
     if not isinstance(buf, bytes):
         raise TypeError("Buffer must be in bytes")
 
-    if len(buf) == 0:
+    bufsize = len(buf)
+    if bufsize == 0:
         raise InvalidMessage("The buffer cannot be empty")
 
     pad_size = ord(buf[-1:])
     pad_size = pad_size or MAX_BLOCK_SIZE
 
-    if len(buf) < pad_size:
+    if bufsize < pad_size:
         raise InvalidMessage("The buffer does not match the pad length.")
 
-    padding = buf[len(buf) - pad_size:-1]
     return buf[:-pad_size]
-

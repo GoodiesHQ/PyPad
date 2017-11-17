@@ -3,7 +3,6 @@ Unit tests for the Zero padding algorithm
 """
 
 from pypad import zero
-from pypad.exceptions import InvalidBlockSize, InvalidMessage
 import pytest
 
 def test_zero_sample():

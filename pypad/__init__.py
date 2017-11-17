@@ -1,4 +1,3 @@
-from functools import partial
 from . import utils
 from . import exceptions
 from . import ansi_x923
