@@ -4,7 +4,7 @@ A simple python module for various padding schemes.
 ## Padding Schemes:
 A review of each padding scheme. Note that if the original data is aligned to the block size, each padding scheme will add a full block of data.
 
-**Note:** All examples are using a 10 byte boundary.
+**Note:** All examples are using a 0x10 (16) byte block size, but these algorithms support a block size of up to 0x100.
 
 #### ANSI x.923
 Pads the bytes `\x00` in repetition followed by the number of bytes (including itself) were used in padding. Since the greated value stored in the last byte is 0xff, this algorithm has a limited block size to 256 (`0x100`).
@@ -29,6 +29,17 @@ Repeats the number of bytes padded, N, N times. An example makes more sense:
 
 
 ## How To Use:
+
+Each padding scheme provides three internal components:
+
+| Module | Pad | Unpad | Max Block Size |
+|-----------|-----|-------|----------------|
+|ansi_x923 | pad(<br>buf: bytes, <br>block_size: int=0x100<br>) | unpad(<br>buf: bytes<br>) |0x100 (256)|
+|iso_10126 | pad(<br>buf: bytes, <br>block_size: int=0x100<br>) | unpad(<br>buf: bytes<br>) |0x100 (256)|
+|pkcs7 | pad(<br>buf: bytes, <br>block_size: int=0x100<br>) | unpad(<br>buf: bytes<br>) |0x100 (256)|
+|zero | pad(<br>buf: bytes,<br>block_size: int=0,<br>byte: bytes=b'\x00'<br>) | unpad(<br>buf: bytes,<br>byte: bytes=None<br>) |N/A|
+
+An example:
 
     from __future__ import print_function
     # Note: 'random' is an alias for iso_10126
