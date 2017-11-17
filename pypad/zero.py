@@ -8,6 +8,7 @@ __all__ = ["pad", "unpad", "MAX_BLOCK_SIZE"]
 
 MAX_BLOCK_SIZE = float("inf")
 
+
 def pad(buf, block_size=0, byte=b"\x00"):
     """Padded with \x00 or byte until block_size."""
     if not isinstance(buf, bytes) or not isinstance(byte, bytes):
@@ -21,6 +22,7 @@ def pad(buf, block_size=0, byte=b"\x00"):
 
     pad_size = block_size - (len(buf) % block_size)
     return buf + (byte * pad_size)
+
 
 def unpad(buf, byte=None):
     """Truncate the padded bytes.

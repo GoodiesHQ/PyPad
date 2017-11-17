@@ -8,6 +8,7 @@ __all__ = ["pad", "unpad", "MAX_BLOCK_SIZE"]
 
 MAX_BLOCK_SIZE = 0x100
 
+
 def pad(buf, block_size=MAX_BLOCK_SIZE):
     """Padded with the number, N, of bytes padded repeated N times."""
     if not isinstance(buf, bytes):
@@ -18,6 +19,7 @@ def pad(buf, block_size=MAX_BLOCK_SIZE):
 
     pad_size = block_size - (len(buf) % block_size)
     return buf + (struct.pack("B", pad_size & 0xff) * pad_size)
+
 
 def unpad(buf):
     """Extract the last byte and truncate the padded \x00's"""

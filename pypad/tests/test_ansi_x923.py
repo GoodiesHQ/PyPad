@@ -6,6 +6,7 @@ from pypad import ansi_x923
 from pypad.exceptions import InvalidBlockSize, InvalidMessage
 import pytest
 
+
 def test_ansi_x923_sample():
     """Testing the ANSI x.923 implementation with some generic test data"""
     original = b"Testing"
@@ -17,6 +18,7 @@ def test_ansi_x923_sample():
 
     unpadded = ansi_x923.unpad(padded)
     assert unpadded == original
+
 
 def test_ansi_x923_aligned():
     """Testing the ANSI x.923 implementation with aligned data"""
@@ -30,6 +32,7 @@ def test_ansi_x923_aligned():
     unpadded = ansi_x923.unpad(padded)
     assert unpadded == original
 
+
 def test_ansi_x923_empty():
     """Testing the ANSI x.923 with an empty buffer with a small block size"""
     original = b""
@@ -42,6 +45,7 @@ def test_ansi_x923_empty():
     unpadded = ansi_x923.unpad(padded)
     assert unpadded == original
 
+
 def test_ansi_x923_empty_max():
     """Testing the ANSI x.923 with an empty buffer with the maximum block size"""
     original = b""
@@ -53,12 +57,14 @@ def test_ansi_x923_empty_max():
     unpadded = ansi_x923.unpad(padded)
     assert unpadded == original
 
+
 def test_ansi_x923_invalid_block_size():
     """Testing the ANSI x.923 with an invalid block size"""
     original = b"Testing"
     block_sz = ansi_x923.MAX_BLOCK_SIZE + 1
     with pytest.raises(InvalidBlockSize):
         ansi_x923.pad(original, block_sz)
+
 
 def test_ansi_x923_invalid_message():
     """Testing the ANSI x.923 with an invalid message"""
@@ -69,6 +75,7 @@ def test_ansi_x923_invalid_message():
     bad_msg = b"Testing\x09"
     with pytest.raises(InvalidMessage):
         ansi_x923.unpad(bad_msg)
+
 
 def test_ansi_x923_invalid_type():
     """Testing the ANSI x.923 with an invalid message type"""

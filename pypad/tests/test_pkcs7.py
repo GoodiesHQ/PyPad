@@ -6,6 +6,7 @@ from pypad import pkcs7
 from pypad.exceptions import InvalidBlockSize, InvalidMessage
 import pytest
 
+
 def test_pkcs7_sample():
     """Testing the PKCS#7 implementation with some generic test data"""
     original = b"Testing"
@@ -17,6 +18,7 @@ def test_pkcs7_sample():
 
     unpadded = pkcs7.unpad(padded)
     assert unpadded == original
+
 
 def test_pkcs7_aligned():
     """Testing the PKCS#7 implementation with aligned data"""
@@ -30,6 +32,7 @@ def test_pkcs7_aligned():
     unpadded = pkcs7.unpad(padded)
     assert unpadded == original
 
+
 def test_pkcs7_empty():
     """Testing the PKCS#7 with an empty buffer with a small block size"""
     original = b""
@@ -42,6 +45,7 @@ def test_pkcs7_empty():
     unpadded = pkcs7.unpad(padded)
     assert unpadded == original
 
+
 def test_pkcs7_empty_max():
     """Testing the PKCS#7 with an empty buffer with the maximum block size"""
     original = b""
@@ -53,12 +57,14 @@ def test_pkcs7_empty_max():
     unpadded = pkcs7.unpad(padded)
     assert unpadded == original
 
+
 def test_pkcs7_invalid_block_size():
     """Testing the PKCS#7 with an invalid block size"""
     original = b"Testing"
     block_sz = pkcs7.MAX_BLOCK_SIZE + 1
     with pytest.raises(InvalidBlockSize):
         pkcs7.pad(original, block_sz)
+
 
 def test_pkcs7_invalid_message():
     """Testing the PKCS#7 with an invalid message"""
@@ -69,6 +75,7 @@ def test_pkcs7_invalid_message():
     bad_msg = b"Testing\x04\x04\x03\x04"
     with pytest.raises(InvalidMessage):
         pkcs7.unpad(bad_msg)
+
 
 def test_pkcs7_invalid_type():
     """Testing the PKCS#7 with an invalid message type"""

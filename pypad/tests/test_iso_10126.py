@@ -6,6 +6,7 @@ from pypad import iso_10126
 from pypad.exceptions import InvalidBlockSize, InvalidMessage
 import pytest
 
+
 def test_iso_10126_sample():
     """Testing the ISO 10126 implementation with some generic test data"""
     original = b"Testing"
@@ -17,6 +18,7 @@ def test_iso_10126_sample():
 
     unpadded = iso_10126.unpad(padded)
     assert unpadded == original
+
 
 def test_iso_10126_aligned():
     """Testing the ISO 10126 implementation with aligned data"""
@@ -30,6 +32,7 @@ def test_iso_10126_aligned():
     unpadded = iso_10126.unpad(padded)
     assert unpadded == original
 
+
 def test_iso_10126_empty():
     """Testing the ISO 10126 with an empty buffer with a small block size"""
     original = b""
@@ -42,6 +45,7 @@ def test_iso_10126_empty():
     unpadded = iso_10126.unpad(padded)
     assert unpadded == original
 
+
 def test_iso_10126_empty_max():
     """Testing the ISO 10126 with an empty buffer with the maximum block size"""
     original = b""
@@ -53,6 +57,7 @@ def test_iso_10126_empty_max():
     unpadded = iso_10126.unpad(padded)
     assert unpadded == original
 
+
 def test_iso_10126_invalid_block_size():
     """Testing the ISO 10126 with an invalid block size"""
     original = b"Testing"
@@ -60,11 +65,13 @@ def test_iso_10126_invalid_block_size():
     with pytest.raises(InvalidBlockSize):
         iso_10126.pad(original, block_sz)
 
+
 def test_iso_10126_invalid_message():
     """Testing the ISO 10126 with an invalid message"""
     bad_msg = b"Testing\x09"
     with pytest.raises(InvalidMessage):
         iso_10126.unpad(bad_msg)
+
 
 def test_iso_10126_invalid_type():
     """Testing the ISO 10126 with an invalid message type"""
